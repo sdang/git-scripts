@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# merge a feature branch back to development branch
+
+if [ -z "$1" ]
+then
+	echo "must specify feature branch name"
+	exit;
+fi
+
+git checkout develop
+git merge --no-ff $1
+
+echo "consider pushing changes to origin: git push origin develop"
+echo "consider deleting feature branch: git branch -d $1"

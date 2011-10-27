@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# make the current directory conform to
+# the usual git structure
+
+if [ -z "$1" ]
+then
+	echo "must specify a destination repository name"
+	exit;
+fi
+
+# initialize repo
+git init .
+touch .gitignore
+git add .gitignore
+git commit -m 'initial commit'
+
+# setup repo for remote tracking
+git remote add origin git@github.com:sdang/$1 
+git push origin master:refs/heads/master
+git config branch.master.remote origin
+git config branch.master.merge refs/heads/master
+
+# setup tracked development branch
+git push origin master:refs/heads/develop
+git fetch
+git checkout --track -b develop origin/develop

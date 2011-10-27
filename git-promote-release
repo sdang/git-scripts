@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# promote release branch to production level code
+
+if [ -z "$1" ]
+then
+	echo "usage: $0 [release-branch] [release-tag]"
+	echo "eg: $0 release-1.0 v1.0"
+	exit;
+fi
+
+if [ -z "$2" ]
+then
+	echo "usage: $0 [release-branch] [release-tag]"
+	echo "eg: $0 release-1.0 v1.0"
+	exit;
+fi
+
+echo "Merging release branch ($1) to master, tagged: $2"
+git checkout master
+git merge --no-ff $1
+git tag -a $2
+
+echo "Merging any changes made in release branch back to develop"
+git checkout develop
+git merge --no-ff $1
+
+echo "Consider deleting release branch: git branch -d $1"
+echo "Consider pushing release branch: git checkout master; git push --tags"
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# create a release branch for staging
+
+if [ -z "$1" ]
+then
+	echo "must specify name for release branch"
+	exit;
+fi
+
+git checkout -b $1 develop
+
+echo "recommend sending this version to staging servers"
+echo "once done run git-promote-release"

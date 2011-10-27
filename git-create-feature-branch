@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# create a feature branch off of the development branch
+
+if [ -z "$1" ]
+then
+	echo "must specify new feature branch name"
+	exit;
+fi
+
+git checkout -b $1 develop
+	
+
